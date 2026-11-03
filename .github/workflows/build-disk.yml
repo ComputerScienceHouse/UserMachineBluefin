@@ -73,6 +73,7 @@ jobs:
         uses: ublue-os/remove-unwanted-software@v9
         with:
           remove-codeql: true
+          remove-large-packages: false
 
       - name: Checkout
         uses: actions/checkout@v7
@@ -81,12 +82,9 @@ jobs:
         id: build
         uses: osbuild/image-builder-action@main
         with:
-          builder-image: ${{ env.BIB_IMAGE }}
-          config-file: ${{ matrix.disk-type == 'anaconda-iso' && './disk_config/iso.toml' || './disk_config/disk.toml' }}
-          image: ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.DEFAULT_TAG }}
-          chown: ${{ env.USER_UID }}:${{ env.USER_GID }}
-          types: ${{ matrix.disk-type }}
-          additional-args: --use-librepo=True
+          image_type: bootc-generic-iso
+          bootc_ref: ghcr.io/computersciencehouse/csh-bluefin-usermachine:latest
+          bootc_default_fs: btrfs
 
       - name: Upload disk images and Checksum to Job Artifacts
         if: inputs.upload-to-s3 != true && github.event_name != 'pull_request'
