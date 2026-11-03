@@ -85,6 +85,10 @@ jobs:
           image_type: bootc-generic-iso
           bootc_ref: ghcr.io/computersciencehouse/csh-bluefin-usermachine:latest
           bootc_default_fs: btrfs
+          
+      - name: Kernel log
+        if: failure()
+        run: sudo dmesg | tail -60
 
       - name: Upload disk images and Checksum to Job Artifacts
         if: inputs.upload-to-s3 != true && github.event_name != 'pull_request'
