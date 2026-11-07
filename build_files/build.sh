@@ -6,8 +6,7 @@ set -ouex pipefail
 cp -avf "/ctx/system_files"/. /
 
 # Add 1Password repo to install 1Password CLI and Desktop App
-curl -fsSL https://raw.githubusercontent.com/1Password/1password-cli/master/1password.repo -o /etc/yum.repos.d/1password.repo
-
+curl -fsSL https://raw.githubusercontent.com/1Password/1password-cli/main/1password.repo -o /etc/yum.repos.d/1password.repo
 
 ### Install packages
 
