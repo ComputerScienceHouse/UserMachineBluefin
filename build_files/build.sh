@@ -6,8 +6,8 @@ set -ouex pipefail
 cp -avf "/ctx/system_files"/. /
 
 # Add 1Password repo to install 1Password CLI and Desktop App
-curl https://downloads.1password.com/linux/keys/1password.asc | sudo tee /etc/pki/rpm-gpg/RPM-GPG-KEY-1password
-sudo sh -c 'echo -e "[1password]\nname=1Password Stable Channel\nbaseurl=https://downloads.1password.com/linux/rpm/stable/\$basearch\nenabled=1\ngpgcheck=1\nrepo_gpgcheck=0\ngpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-1password" > /etc/yum.repos.d/1password.repo'
+curl -fsSL https://raw.githubusercontent.com/1Password/1password-cli/master/1password.repo -o /etc/yum.repos.d/1password.repo
+
 
 ### Install packages
 
