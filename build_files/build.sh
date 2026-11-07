@@ -11,7 +11,7 @@ rpm --import https://downloads.1password.com/linux/keys/1password.asc
 cat <<EOF > /etc/yum.repos.d/1password.repo
 [onepassword]
 name=1Password Stable Channel
-baseurl=https://downloads.1password.com/linux/yum/stable/\$basearch
+baseurl=https://downloads.1password.com/linux/rpm/stable/\$basearch
 enabled=1
 gpgcheck=1
 repo_gpgcheck=1
