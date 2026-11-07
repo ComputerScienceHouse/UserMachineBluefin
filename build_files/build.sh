@@ -6,7 +6,18 @@ set -ouex pipefail
 cp -avf "/ctx/system_files"/. /
 
 # Add 1Password repo to install 1Password CLI and Desktop App
-curl -fsSL https://raw.githubusercontent.com/1Password/1password-cli/main/1password.repo -o /etc/yum.repos.d/1password.repo
+rpm --import https://downloads.1password.com/linux/keys/1password.asc
+
+cat <<EOF > /etc/yum.repos.d/1password.repo
+[onepassword]
+name=1Password Stable Channel
+baseurl=https://downloads.1password.com/linux/yum/stable/\$basearch
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://downloads.1password.com/linux/keys/1password.asc
+EOF
+
 
 ### Install packages
 
@@ -16,8 +27,7 @@ curl -fsSL https://raw.githubusercontent.com/1Password/1password-cli/main/1passw
 # https://mirrors.rpmfusion.org/mirrorlist?path=free/fedora/updates/43/x86_64/repoview/index.html&protocol=https&redirect=1
 
 # this installs a package from fedora repos
-dnf5 install -y tmux
-rpm-ostree install -y 1password 1password-cli
+dnf5 install -y tmux 1password 1password-cli
 # Use a COPR Example:
 #
 # dnf5 -y copr enable ublue-os/staging
